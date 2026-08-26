@@ -1,0 +1,9 @@
+node_modules
+.npm-cache
+.next
+.env
+.env.local
+.env.*.local
+!.env.example
+*.tsbuildinfo
+drizzle

@@ -1,0 +1,5 @@
+const EXTENSIONS = new Set(["js", "jsx", "ts", "tsx", "py", "html", "css", "json", "md", "txt", "csv", "sql", "ipynb", "xlsx", "xls", "pdf", "png", "jpg", "jpeg", "webp", "svg"]);
+const BLOCKED = new Set([".env", ".env.local", "id_rsa", "id_ed25519", "credentials.json"]);
+export const MAX_FILE_BYTES = 10 * 1024 * 1024;
+export function validateUpload(file: File) { const name = file.name.toLowerCase(); const extension = name.split(".").pop() ?? ""; if (!name || name.includes("..") || name.startsWith("/") || BLOCKED.has(name) || !EXTENSIONS.has(extension)) throw new Error("This file type or path is not allowed."); if (file.size > MAX_FILE_BYTES) throw new Error(`${file.name} exceeds the 10 MB limit.`); return { name, extension }; }
+export function safeRepositoryName(value: string) { const name = value.trim().toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/^-+|-+$/g, ""); if (!name || name.length > 100) throw new Error("Repository name must be 1–100 valid characters."); return name; }
